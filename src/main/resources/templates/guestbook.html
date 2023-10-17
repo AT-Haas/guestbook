@@ -34,7 +34,12 @@
 					</div>
 					<div class="card-body">
 						<blockquote class="entrytext" th:text="${entry.text}"></blockquote>
+						<form th:action="@{/upvote/{entryId}(entryId=${entry.id})}" method="post">
+							<button type="submit" class="btn btn-sm">Like</button>
+							<span th:text="${entry.likes}"></span>
+						</form>
 					</div>
+
 					<div class="card-footer">
 						<footer class="date" th:text="${#temporals.format(entry.date, 'dd. MMMM yyyy - HH:mm')}">Datum</footer>
 					</div>

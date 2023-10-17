@@ -154,6 +154,19 @@ class GuestbookController {
 				.addTrigger("eventAdded");
 	}
 
+	@PostMapping(path = "/upvote/{entryId}")
+	String upvoteEntry(@PathVariable Long entryId) {
+		Optional<GuestbookEntry> optionalEntry = guestbook.findById(entryId);
+
+		if (optionalEntry.isPresent()) {
+			GuestbookEntry entry = optionalEntry.get();
+			entry.upvote();
+			guestbook.save(entry);
+		}
+
+		return "redirect:/guestbook";
+	}
+
 	/**
 	 * Handles AJAX requests to delete {@link GuestbookEntry}s. Otherwise, this method is similar to
 	 * {@link #removeEntry(Optional)}.
